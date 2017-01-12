@@ -14,23 +14,61 @@ angular.module('app.dash', [])
             }).then(function(returnData) {
                 var data = {};
                 data = returnData.data.data;
+
                 if (data) {
                     dash.loading = '';
                 };
                 var totalData = data.length;
                 for (var k = 0; k < data.length; k++) {
                     data[k].event_types = [data[k].event_type];
-                    //console.log(data[k].event_type);
+                    data[k].longitude = Number(data[k].longitude);
+                    //console.log(data[k].longitude);
+                    data[k].lon = [];
+                    data[k].lon[0] = data[k].longitude;
+                    data[k].latitude = Number(data[k].latitude);
+                    data[k].lat = [];
+                    data[k].lat[0] = data[k].latitude;
                     data[k].fatalities = parseInt(data[k].fatalities);
                     data[k].number_events = 1;
                 }
-                //var number_events = [1];
-                console.log(data[0]);
+
+                //Geo plots below
+                var center = [Number(data[0].latitude), Number(data[0].longitude)];
+                if (dash.map != undefined || dash.map != null) {
+                  dash.map.remove();
+                }
+                dash.map = L.map('mapid', {
+                  center: center,
+                  minZoom: 4,
+                  maxZoom: 7,
+                  zoom:5,
+                  zoomControl:false,
+                });
+                L.tileLayer('https://api.mapbox.com/styles/v1/josephseverino/cixtc84tb000v2snxszx9br6g/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoiam9zZXBoc2V2ZXJpbm8iLCJhIjoiY2l4dGE4OWI4MDAwajJxcXExYmpiNTVpaCJ9.H3f8THrMs3FkcvIjphYpAw', {
+                  attribution: 'MapBox and Leaflet',
+                  maxZoom: 18,
+
+                }).addTo(dash.map);
+                //adding bubbles to map
+
+                // for(var i = 0; i < dash.days; i++ ){
+                //   var latlon = [];
+                //   latlon[0] = parseInt(data[i].latitude);
+                //   latlon[1] = parseInt(data[i].longitude);
+                //   var circle = L.circle(latlon, {
+                //     color: 'black',
+                //     fillColor: 'red',
+                //     fillOpacity: 0.05,
+                //     radius: 10000
+                //   }).addTo(dash.map);
+                // }
                 for (var i = 0; i < data.length; i++) {
 
                     for (var j = i + 1; j < data.length; j++) {
                         if (data[i].event_date == data[j].event_date) {
                             data[i].number_events += 1;
+                            data[i].lon.push(data[j].longitude);
+                            data[i].lat.push(data[j].latitude);
                             data[i].event_types.push(data[j].event_type);
                             data[i].fatalities += data[j].fatalities;
                             data.splice(j, 1);
@@ -38,39 +76,13 @@ angular.module('app.dash', [])
                         }
                     }
                 }
-                //Geo plots below
-                var center = [parseInt(data[0].latitude), parseInt(data[0].longitude)];
-                if (dash.map != undefined || dash.map != null) {
-                    dash.map.remove();
-                }
-                dash.map = L.map('mapid', {
-                    center: center,
-                    minZoom: 5,
-                    maxZoom: 8,
-                    zoom:6,
-                    zoomControl:false,
-                });
-                L.tileLayer('https://api.mapbox.com/styles/v1/josephseverino/cixtc84tb000v2snxszx9br6g/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoiam9zZXBoc2V2ZXJpbm8iLCJhIjoiY2l4dGE4OWI4MDAwajJxcXExYmpiNTVpaCJ9.H3f8THrMs3FkcvIjphYpAw', {
-                    attribution: 'MapBox and Leaflet',
-                    maxZoom: 18,
-
-                }).addTo(dash.map);
-                //adding bubbles to map
-                for(var i = 0; i < dash.days; i++ ){
-                  var latlon = [];
-                  latlon[0] = parseInt(data[i].latitude);
-                  latlon[1] = parseInt(data[i].longitude);
-                  var circle = L.circle(latlon, {
-                    color: 'rgba(255,0,0,.05)',
-                    fillColor: 'red',
-                    fillOpacity: 0.05,
-                    radius: 100000
-                  }).addTo(dash.map);
-                }
                 data.current = dash.days;
+                if(data.current == 0){
+                  data.current = data.length-1;
+                }
                 dash.dateBeginning = data[data.current].event_date;
                 dash.dateEnding = data[0].event_date;
-                //console.log(data);
+                console.log(data);
 
                 var deaths = [],
                     dates = [],

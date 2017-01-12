@@ -94,10 +94,11 @@
             </select>
             <label for="sel1">Select Number of Days You Like to Observe:</label>
             <select class="form-control mySelect" id="sel1" ng-model="dash.days">
-              <option>30</option>
-              <option>90</option>
-              <option>180</option>
-              <option>365</option>
+              <option value=30 >1 Month</option>
+              <option value=92 >3 Months</option>
+              <option value=180 >6 Months</option>
+              <option value=365 >1 Year</option>
+              <option value=0>All Data</option>
             </select>
             <button class="btn btn-default" type="submit">Let's Change Things Up!</button>
             <h2 class="countryName redAlert">{{ dash.loading }}</h2>
@@ -128,6 +129,25 @@
         <canvas id="eventChart" height="30" width="100"></canvas>
     </div>
     <div id="mapid"></div>
+    <div class="mapToolBox">
+      <div class="form-group">
+        <h2>Tools For Map Graphics</h2>
+        <label class="label" for="sel2">Select event types you are interested in</label>
+        <select class="form-control geoSelect" id="sel2" >
+          <option >Strategic Development</option>
+          <option >Headquarters or base established</option>
+          <option >Battle-Non-state actor overtakes territory</option>
+          <option >Battle-Government regains territory</option>
+          <option >Non-violent transfer of territory</option>
+          <option >Strategic development</option>
+          <option >Riots/Protests</option>
+          <option >Remote violence</option>
+          <option >Violence against civilians</option>
+          <option >Battle-No change of territory</option>
+          <option>Select all event types</option>
+        </select>
+      </div>
+    </div>
 </body>
 
 </html>

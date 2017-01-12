@@ -58,8 +58,25 @@ form {
  }
 
 #mapid {
+  display:inline-block;
   height: 600px;
   width:70%;
   float:left;
   margin:10px;
+}
+.mapToolBox {
+  display:inline-block;
+  height: 600px;
+  width:27%;
+  float:left;
+  margin:10px;
+  background-color: white;
+}
+.label {
+  margin:auto;
+  text-align: center;
+}
+.geoSelect {
+  width:90%;
+  margin:auto;
 }

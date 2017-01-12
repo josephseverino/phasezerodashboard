@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html ng-app="app.auth">
+
+<head>
+    <title>Login</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/auth.css">
+    <script src="/js/auth.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body ng-controller="app.auth.controller as auth">
+  <div class="filter">
+    <div class="sign-in-container">
+      <img src="../images/phaseZero_log.png" class="responsive_logo" />
+      <form ng-submit="auth.login.submit($event)">
+        <fieldset class="form-group">
+          <label class="sr-only" for="email">Email</label>
+          <div class="input-group">
+            <div class="input-group-addon">@</div>
+            <input required placeholder="Email" class="form-control" type="email" ng-model="auth.payload.email" />
+          </div>
+        </fieldset>
+        <fieldset class="form-group">
+          <label class="sr-only" for="password">Password</label>
+          <div class="input-group">
+            <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+            <input required placeholder="Password" class="form-control" type="password" ng-model="auth.payload.password" />
+          </div>
+        </fieldset>
+        <input class="btn btn-login" type="submit" value="Login">
+        <a ng-click="auth.popup = !auth.popup"  type="button" class="btn btn-primary no-member">Register</a>
+        <p ng-class="auth.login.alert">{{ auth.login.message }}</p>
+        <h6><a href="/">Homepage</a></h6>
+      </form>
+    </div>
+    <div ng-show="auth.popup" class="modal_register">
+      <form class="form" ng-submit="auth.register.submit($event)">
+        <div class="sign-in-exit" ng-click="auth.popup = !auth.popup">X</div>
+        <h1 class="text-center">Register!</h1>
+        <fieldset class="form-group">
+          <label class="sr-only">User Name</label>
+          <div class="input-group">
+            <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+            <input required placeholder="User Name" class="form-control" type="text" ng-model="auth.payload.user" />
+          </div>
+        </fieldset>
+        <fieldset class="form-group">
+          <label class="sr-only" for="email">Email</label>
+          <div class="input-group">
+            <div class="input-group-addon">@</div>
+            <input required placeholder="Email" class="form-control" type="text" ng-model="auth.payload.email" />
+          </div>
+        </fieldset>
+        <fieldset class="form-group">
+          <label class="sr-only" for="password">Password</label>
+          <div class="input-group">
+            <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+            <input required placeholder="Create a password" class="form-control" type="password" ng-model="auth.payload.password" />
+          </div>
+        </fieldset>
+        <button class="btn btn-primary" type="submit">Register</button>
+        <p ng-class="auth.register.alert">{{ auth.register.message }}</p>
+      </div>
+    </form>
+  </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $("div.sign-in-container").animate({
+                top: '150px',
+                opacity: '1',
+
+            }, "slow");
+        });
+    </script>
+</body>
+
+</html>

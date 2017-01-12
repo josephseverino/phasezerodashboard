@@ -1,0 +1,199 @@
+body {
+  background-color: white;
+  font-family:'Quicksand';
+}
+#logoImg {
+  height:50px;
+  width:auto;
+  margin:10px;
+}
+.top-nav {
+  background-color: white;
+  position:fixed;
+  top:0;
+  left:0;
+  height:80px;
+  width:100%;
+  z-index:100;
+  -webkit-box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
+
+}
+#bold_name {
+  font-weight:900;
+}
+.vertical_center {
+  color:rgb(29,24,60);
+  margin:25px 15px;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.side-nav {
+  position:fixed;
+  right:0;
+  top:80px;
+  height: 100vh;
+  width: 18%;
+  background-color: rgb(50,50,50);
+  z-index: 3;
+}
+ul {
+  text-decoration: none;
+}
+ul.dashboard_side_nav {
+  padding:0;
+}
+.dashboard_side_nav a{
+  text-decoration: none;
+  text-align:center;
+  margin: auto;
+  color:lightgrey;
+  font-family: 'Quicksand';
+
+}
+.dashboard_side_nav li:hover {
+  background-color:white;
+}
+
+.dashboard_side_nav li{
+  padding:15px;
+  list-style: none;
+}
+.dashboard_sidenav a:hover{
+  color:white;
+}
+
+.textExpand {
+  height:auto;
+  width:76%;
+  margin:-20px 20px 20px 20px;
+  background-color: white;
+  /*border-radius: 0px 0px 15px 15px;*/
+  -webkit-box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
+}
+.graph_1_title {
+  text-align: center;
+  background-color: #5682A0;
+  margin: 110px 20px 0px 20px;
+  height: 50px;
+  width:76%;
+  /*border-radius: 15px 15px 0px 0px;*/
+  color: rgb(230,230,230);
+  font-family: 'Quicksand';
+}
+.graph_1 {
+  height:370px;
+  width:76%;
+  margin:0px 20px 20px 20px;
+  background-color: white;
+  /*border-radius: 0px 0px 15px 15px;*/
+  -webkit-box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
+
+}
+.graph_2_title {
+  text-align: center;
+  background-color: #5682A0;
+  margin: 50px 20px 0px 20px;
+  width:76%;
+  padding: 15px;
+  /*border-radius: 15px 15px 0px 0px;*/
+  color: rgb(230,230,230);
+  font-family: 'Quicksand';
+}
+.graph_2 {
+  height:300px;
+  width: 76%;
+  font-size: 12px;
+  margin:0px 20px 20px 20px;
+  background-color: white;
+  /*border-radius: 0px 0px 15px 15px;*/
+  -webkit-box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
+
+}
+.graph_3_title {
+  text-align: center;
+  background-color: #5682A0;
+  margin: 50px 20px 0px 20px;
+  width:76%;
+  padding: 15px;
+  /*border-radius: 15px 15px 0px 0px;*/
+  color: rgb(230,230,230);
+  font-family: 'Quicksand';
+}
+.graph_3 {
+  height:350px;
+  width: 76%;
+  font-size: 12px;
+  margin:0px 20px 20px 20px;
+  background-color: white;
+  /*border-radius: 0px 0px 15px 15px;*/
+  -webkit-box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
+}
+.graph_3_img{
+  max-width:100%;
+  max-height:100%;
+}
+.graph_4_title{
+  text-align: center;
+  background-color: #5682A0;
+  margin: 50px 20px 0px 20px;
+  width:76%;
+  padding: 15px;
+  /*border-radius: 15px 15px 0px 0px;*/
+  color: rgb(230,230,230);
+  font-family: 'Quicksand';
+}
+.graph_4 {
+  height:auto;
+  width: 76%;
+  font-size: 12px;
+  margin:0px 20px 20px 20px;
+  background-color: white;
+  /*border-radius: 0px 0px 15px 15px;*/
+  -webkit-box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
+}
+.graph_4_chart {
+  max-width:100%;
+  max-height:100%;
+}
+.graph_5 {
+  height:500px;
+  background-color: rgba(0,0,0,.08);
+}
+
+.graph_container {
+  height:auto;
+  width: 76%;
+  font-size: 12px;
+  margin:0px 20px 20px 20px;
+  background-color: white;
+  /*border-radius: 0px 0px 15px 15px;*/
+  -webkit-box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
+}
+
+.graph_fill {
+  max-width:100%;
+  max-height:100%;
+  margin-left: 15%;
+}
+
+@media screen and (max-width: 1200px) {
+    .graph_fill {
+      max-width:100%;
+      max-height:100%;
+      margin:auto;
+    }
+}

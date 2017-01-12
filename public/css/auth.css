@@ -1,0 +1,141 @@
+body {
+    background: url('http://www.talend.com/sites/default/files/beyond_the_data_vault_1.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-size: 20px;
+    position:relative;
+    padding-bottom: 50px;
+      font-family:'Quicksand';
+
+}
+
+.filter {
+  position:fixed;
+  top:0;
+  left:0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0,0,0,.8);
+}
+
+form {
+    padding: 0 30px;
+}
+.responsive_logo {
+  height:150px;
+  width:auto;
+  margin:auto 10%;
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
+
+  /*background-color :rgba(0,0,0,0);
+  border:none;*/
+  border-bottom:rgba(255,255,255,.4) solid 1px;
+  color:rgb(29,24,60);
+}
+#tabs {
+    margin: 40px auto;
+    width: 480px;
+}
+
+#tabs h1 {
+    margin: 0;
+    padding: 30px;
+}
+
+.tab-content {
+    border: 1px solid #ddd;
+    border-top: none;
+}
+.home-exit {
+    position: relative;
+    right: -550px;
+    top: -90px;
+    color: black;
+}
+
+.btn-login{
+    background-color: rgb(29,24,60);
+    width:49%;
+    height:40px;
+    color:white;
+    font-size: 22px;
+    display:inline-block;
+    text-transform: uppercase;
+    box-shadow: 0px 17px 20px rgba(0,0,0,.4);
+    cursor: pointer;
+    transition: all ease-in-out 300ms;
+}
+
+.btn-login:hover {
+  box-shadow: 0px 37px 20px -20px rgba(0,0,0,.2);
+  transform: translate(0px, -10px);
+}
+.no-member {
+    /*margin-top: 10px;*/
+    background-color: black;
+    width:49%;
+    height:40px;
+    color:white;
+    font-size: 22px;
+    border:none;
+    display:inline-block;
+    text-transform: uppercase;
+    box-shadow: 0px 17px 20px rgba(0,0,0,.4);
+    cursor: pointer;
+    transition: all ease-in-out 300ms;
+}
+
+.no-member:hover{
+  box-shadow: 0px 37px 20px -20px rgba(0,0,0,.2);
+  transform: translate(0px, -10px);
+  color:grey;
+  background-color: black;
+  border:none;
+}
+.alert {
+    margin: 20px 0;
+}
+
+.tab-pane {
+    padding: 30px 0;
+    box-sizing: border-box;
+}
+.sign-in-container {
+    position: fixed;
+    top:-400px;
+    left:28%;
+    padding-bottom: 100px;
+    padding-top:20px;
+    background-color: rgba(255,255,255,.8);
+    -webkit-box-shadow: 10px 10px 50px 0px rgba(255,255,255,0.75);
+    -moz-box-shadow: 10px 10px 50px 0px rgba(255,255,255,0.75);
+    box-shadow: 10px 10px 50px 0px rgba(255,255,255,0.75);
+    z-index:10;
+    width:43%;
+    border-radius: 10px;
+
+}
+.modal_register {
+    position: absolute;
+    top:0px;
+    left:0px;
+    height:100vh;
+    width:100vw;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index:10001;
+}
+.form {
+    position: relative;
+    top:50px;
+    margin:0 35%;
+    height: auto;
+    padding:100px;
+    width: 500px;
+    z-index:10003;
+    color: rgba(0, 0, 0, 0.9);
+    background-color: white;
+}

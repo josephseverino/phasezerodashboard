@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app.dash">
+
+<head>
+    <title>PhaseZero</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+    <link rel="stylesheet" type="text/css" href="../css/dashboard2.css">
+    <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+    <script src="../js/dashboard2.js"></script>
+</head>
+
+<body ng-controller="DashController as dash">
+    <div class="top-header">
+        <h5 class="right">
+          +1 (855)474-2730 | info@phasezero.io
+        </h5>
+    </div>
+    <nav>
+        <img id="logoImg" src="/images/phaseZero_log.png" />
+        <div class="pull-right container-fluid">
+            <ul class="nav nav-pills">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">What We Do</a></li>
+                <li><a href="#">Our Team</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="/login">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+    <form ng-submit="dash.changeInput()">
+        <div class="form-group">
+            <label for="sel1">Select A Country Of Interest:</label>
+            <select class="form-control mySelect" id="sel1" ng-model="dash.inputName">
+              <option selected >Algeria</option>
+              <option>Angola</option>
+              <option>Benin</option>
+              <option>Botswana</option>
+              <option>Burkina Faso</option>
+              <option>Burundi</option>
+              <option>Cameroon</option>
+              <option>Central African Republic</option>
+              <option>Chad</option>
+              <option>Djibouti</option>
+              <option>Democratic Republic of Congo</option>
+              <option>Egypt</option>
+              <option>Equatorial Guinea</option>
+              <option>Eritrea</option>
+              <option>Gabon</option>
+              <option>Gambia</option>
+              <option>Ghana</option>
+              <option>Guinea</option>
+              <option>Guinea-Bissau</option>
+              <option>Ivory Coast</option>
+              <option>Kenya</option>
+              <option>Lesotho</option>
+              <option>Liberia</option>
+              <option>Libya</option>
+              <option>Madagascar</option>
+              <option>Malawi</option>
+              <option>Mali</option>
+              <option>Mauritania</option>
+              <option>Morocco</option>
+              <option>Mozambique</option>
+              <option>Namibia</option>
+              <option>Niger</option>
+              <option>Nigeria</option>
+              <option>Republic of Congo</option>
+              <option>Rwanda</option>
+              <option>Senegal</option>
+              <option>Sierra Leone</option>
+              <option>Somalia</option>
+              <option>South Africa</option>
+              <option>South Sudan</option>
+              <option>Sudan</option>
+              <option>Swaziland</option>
+              <option>Tanzania</option>
+              <option>Togo</option>
+              <option>Tunisia</option>
+              <option>Uganda</option>
+              <option>Zambia</option>
+              <option>Zimbabwe</option>
+            </select>
+            <label for="sel1">Select Number of Days You Like to Observe:</label>
+            <select class="form-control mySelect" id="sel1" ng-model="dash.days">
+              <option>30</option>
+              <option>90</option>
+              <option>180</option>
+              <option>365</option>
+            </select>
+            <button class="btn btn-default" type="submit">Let's Change Things Up!</button>
+            <h2 class="countryName redAlert">{{ dash.loading }}</h2>
+        </div>
+    </form>
+    <div class="metricsContainer">
+        <div class="topStats">
+            <h5 class="countryTitle">Current Country of Interest</h5>
+            <h2 class="countryName">{{ dash.inputName }}</h2>
+        </div>
+        <div id="container-speed" fill="black" class="topStats"></div>
+        <div id="container-rpm" fill="black" class="topStats"></div>
+        <div id="container-rpm2" class="topStats"></div>
+        <div class="topStats">
+            <h5 class="countryTitle">Current Dates of Observed Data</h5>
+            <h4 class="countryName">{{dash.dateBeginning}} - {{dash.dateEnding}}</h4></div>
+    </div>
+    <div id="radarContainer">
+        <canvas id="radarChart" height="75" width="100"></canvas>
+    </div>
+    <div id="radarContainer">
+        <canvas id="donutChart" height="75" width="100"></canvas>
+    </div>
+    <div id="graphics_container">
+        <canvas id="fatalitiesChart" height="30" width="100"></canvas>
+    </div>
+    <div id="graphics_container">
+        <canvas id="eventChart" height="30" width="100"></canvas>
+    </div>
+    <div id="mapid"></div>
+</body>
+
+</html>

@@ -1,10 +1,12 @@
 angular.module('app.dash', [])
     .controller('DashController', ['$scope', '$http', function($scope, $http) {
         var dash = this;
-        dash.inputName = '';
+        dash.inputName = 'Nigeria';
+        dash.days = 30;
+
 
         dash.changeInput = () => {
-            dash.loading = 'Patience! Data Is On Its Way...';
+            dash.loading = 'Sit back while we prepare your data...';
             $http({
                 method: 'GET',
                 url: '/api/ACLED',
@@ -14,11 +16,11 @@ angular.module('app.dash', [])
             }).then(function(returnData) {
                 var data = {};
                 data = returnData.data.data;
-
                 if (data) {
                     dash.loading = '';
-                };
+                }
                 var totalData = data.length;
+                dash.total = totalData;
                 for (var k = 0; k < data.length; k++) {
                     data[k].event_types = [data[k].event_type];
                     data[k].longitude = Number(data[k].longitude);
@@ -27,6 +29,31 @@ angular.module('app.dash', [])
                     data[k].lon[0] = data[k].longitude;
                     data[k].latitude = Number(data[k].latitude);
                     data[k].lat = [];
+                    if (data[k].event_date.substr(5, 7) == "01") {
+                        data[k].month = "January";
+                    } else if (data[k].event_date.substr(5, 7) == "02") {
+                        data[k].month = "Febuary";
+                    } else if (data[k].event_date.substr(5, 7) == "03") {
+                        data[k].month = "March";
+                    } else if (data[k].event_date.substr(5, 7) == "04") {
+                        data[k].month = "April";
+                    } else if (data[k].event_date.substr(5, 7) == "05") {
+                        data[k].month = "May";
+                    } else if (data[k].event_date.substr(5, 7) == "06") {
+                        data[k].month = "June";
+                    } else if (data[k].event_date.substr(5, 7) == "07") {
+                        data[k].month = "July";
+                    } else if (data[k].event_date.substr(5, 7) == "08") {
+                        data[k].month = "August";
+                    } else if (data[k].event_date.substr(5, 7) == "09") {
+                        data[k].month = "September";
+                    } else if (data[k].event_date.substr(5, 7) == "10") {
+                        data[k].month = "October";
+                    } else if (data[k].event_date.substr(5, 7) == "11") {
+                        data[k].month = "November";
+                    } else if (data[k].event_date.substr(5, 7) == "12") {
+                        data[k].month = "December";
+                    };
                     data[k].lat[0] = data[k].latitude;
                     data[k].fatalities = parseInt(data[k].fatalities);
                     data[k].number_events = 1;
@@ -35,33 +62,44 @@ angular.module('app.dash', [])
                 //Geo plots below
                 var center = [Number(data[0].latitude), Number(data[0].longitude)];
                 if (dash.map != undefined || dash.map != null) {
-                  dash.map.remove();
+                    dash.map.remove();
                 }
                 dash.map = L.map('mapid', {
-                  center: center,
-                  minZoom: 4,
-                  maxZoom: 7,
-                  zoom:5,
-                  zoomControl:false,
+                    center: center,
+                    minZoom: 5,
+                    maxZoom: 18,
+                    tap: true,
+                    zoom: 6,
+                    zoomWheelZoom: false,
                 });
                 L.tileLayer('https://api.mapbox.com/styles/v1/josephseverino/cixtc84tb000v2snxszx9br6g/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoiam9zZXBoc2V2ZXJpbm8iLCJhIjoiY2l4dGE4OWI4MDAwajJxcXExYmpiNTVpaCJ9.H3f8THrMs3FkcvIjphYpAw', {
-                  attribution: 'MapBox and Leaflet',
-                  maxZoom: 18,
+                    attribution: 'MapBox and Leaflet',
+                    maxZoom: 18,
 
                 }).addTo(dash.map);
                 //adding bubbles to map
+                dash.geoMap = () => {
+                    for (var i = 0; i < data.length; i++) {
 
-                // for(var i = 0; i < dash.days; i++ ){
-                //   var latlon = [];
-                //   latlon[0] = parseInt(data[i].latitude);
-                //   latlon[1] = parseInt(data[i].longitude);
-                //   var circle = L.circle(latlon, {
-                //     color: 'black',
-                //     fillColor: 'red',
-                //     fillOpacity: 0.05,
-                //     radius: 10000
-                //   }).addTo(dash.map);
-                // }
+                        if (data[i].year >= dash.firstYear && data[i].year <= dash.lastYear) {
+
+                            var latlon = [];
+                            latlon[0] = data[i].latitude;
+                            latlon[1] = data[i].longitude;
+                            console.log(dash.circle);
+                            dash.circle = L.circleMarker(latlon, {
+                                color: 'rgba(150,0,0,0)',
+                                fillColor: 'rgb(150,0,0)',
+                                fillOpacity: 0.1,
+                                radius: 30
+                            }).addTo(dash.map);
+                        }
+                    }
+                }
+                dash.clearMap = () => {
+                    console.log(dash.map)
+                }
+
                 for (var i = 0; i < data.length; i++) {
 
                     for (var j = i + 1; j < data.length; j++) {
@@ -76,13 +114,13 @@ angular.module('app.dash', [])
                         }
                     }
                 }
-                data.current = dash.days;
-                if(data.current == 0){
-                  data.current = data.length-1;
+                dash.current = dash.days;
+                if (dash.current == 0) {
+                    dash.current = data.length - 1;
                 }
-                dash.dateBeginning = data[data.current].event_date;
+                dash.dateBeginning = data[dash.current].event_date;
                 dash.dateEnding = data[0].event_date;
-                console.log(data);
+                //console.log(data);
 
                 var deaths = [],
                     dates = [],
@@ -90,7 +128,7 @@ angular.module('app.dash', [])
                     counts = {},
                     event_type = [counts];
 
-                for (var i = 0; i < data.current; i++) {
+                for (var i = dash.current; i >= 0; i--) {
                     event_type.push(data[i].event_types
                         .forEach(function(x) {
                             counts[x] = (counts[x] || 0) + 1;
@@ -104,12 +142,12 @@ angular.module('app.dash', [])
                 var list = event_type[0];
                 var numArray = Object.values(list);
                 numArray = numArray.sort((a, b) => a - b);
-                console.log(numArray);
+                //console.log(numArray);
                 var list = event_type[0];
                 keysSorted = Object.keys(list).sort(function(a, b) {
                     return list[a] - list[b]
                 });
-                console.log(keysSorted);
+                //console.log(keysSorted);
                 var ctx3 = document.getElementById("radarChart");
                 if (dash.myRadarChart != undefined || dash.myRadarChart != null) {
                     dash.myRadarChart.destroy();
@@ -145,34 +183,44 @@ angular.module('app.dash', [])
                         datasets: [{
                             data: numArray,
                             backgroundColor: [
-                                "#ED254E",
-                                "#F9DC5C",
-                                "#C2EABD",
-                                "#011936",
-                                "#465362",
-                                "#F1FAEE",
-                                "#A8DADC",
-                                "#457B9D"
+                                "rgba(150,0,0,.5)",
+                                "rgba(0,150,0,.5)",
+                                "rgba(0,0,150,.5)",
+                                "rgba(150,150,0,.5)",
+                                "rgba(150,150,150,.5)",
+                                "rgba(0,150,150,.5)",
+                                "rgba(150,0,150,.5)",
+                                "rgba(75,0,0,.5)",
+                                "rgba(0,75,0,.5)",
+                                "rgba(0,0,75,.5)"
+
                             ],
                             hoverBackgroundColor: [
-                                "#ED254E",
-                                "#F9DC5C",
-                                "#C2EABD",
-                                "#011936",
-                                "#465362",
-                                "#F1FAEE",
-                                "#A8DADC",
-                                "#457B9D"
+                                "rgba(150,0,0,1)",
+                                "rgba(0,150,0,1)",
+                                "rgba(0,0,150,1)",
+                                "rgba(150,150,0,1)",
+                                "rgba(150,150,150,1)",
+                                "rgba(0,150,150,1)",
+                                "rgba(150,0,150,1)",
+                                "rgba(75,0,0,1)",
+                                "rgba(0,75,0,1)",
+                                "rgba(0,0,75,1)"
                             ]
                         }]
                     },
+                    options: {
+                      legend: {
+                        position: 'left',
+                      }
+                    }
                 });
                 var ctx = document.getElementById("fatalitiesChart");
                 // dash.myLineChart = undefined;
                 if (dash.myLineChart != undefined || dash.myLineChart != null) {
                     dash.myLineChart.destroy();
                 }
-                console.log(dash.myLineChart)
+                //console.log(dash.myLineChart)
                 dash.myLineChart = new Chart(ctx, {
                     type: 'line',
                     data: {
@@ -181,17 +229,17 @@ angular.module('app.dash', [])
                             label: "Fatalities",
                             fill: true,
                             lineTension: 0.1,
-                            backgroundColor: "rgba(75,192,192,0.4)",
-                            borderColor: "rgba(75,192,192,1)",
+                            backgroundColor: "rgba(150,0,0,0.4)",
+                            borderColor: "rgba(150,0,0,1)",
                             borderCapStyle: 'butt',
                             borderDash: [],
                             borderDashOffset: 0.0,
                             borderJoinStyle: 'miter',
-                            pointBorderColor: "rgba(75,192,192,1)",
+                            pointBorderColor: "rgba(150,0,0,1)",
                             pointBackgroundColor: "black",
                             pointBorderWidth: 1,
                             pointHoverRadius: 5,
-                            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                            pointHoverBackgroundColor: "rgba(150,0,0,1)",
                             pointHoverBorderColor: "rgba(220,220,220,1)",
                             pointHoverBorderWidth: 2,
                             pointRadius: 1,
@@ -200,10 +248,10 @@ angular.module('app.dash', [])
                             spanGaps: false,
                         }, {
                             type: 'line',
-                            label: 'Line Component',
+                            label: 'Number of Events',
                             data: events,
-                            backgroundColor: "rgba(255,255,0,0.3)",
-                            borderColor: "rgba(255,255,0,1)"
+                            backgroundColor: "rgba(0,0,0,0.3)",
+                            borderColor: "rgba(0,0,0,.7)"
                         }]
                     }
                 });
@@ -220,17 +268,17 @@ angular.module('app.dash', [])
                             label: "Number Of Events",
                             fill: true,
                             lineTension: 0.1,
-                            backgroundColor: "rgba(255,255,0,0.3)",
-                            borderColor: "rgba(255,255,0,1)",
-                            borderCapStyle: 'orange',
+                            backgroundColor: "rgba(0,0,0,0.1)",
+                            borderColor: "rgba(0,0,0,5)",
+                            borderCapStyle: 'black',
                             borderDash: [],
                             borderDashOffset: 0.0,
                             borderJoinStyle: 'miter',
-                            pointBorderColor: "rgba(75,192,192,1)",
+                            pointBorderColor: "rgba(0,0,0,.5)",
                             pointBackgroundColor: "black",
                             pointBorderWidth: 1,
                             pointHoverRadius: 5,
-                            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                            pointHoverBackgroundColor: "rgba(0,0,0,.5)",
                             pointHoverBorderColor: "rgba(220,220,220,1)",
                             pointHoverBorderWidth: 2,
                             pointRadius: 1,
@@ -271,9 +319,9 @@ angular.module('app.dash', [])
                         // the value axis
                         yAxis: {
                             stops: [
-                                [0.1, 'green'], // green
-                                [0.5, 'yellow'], // yellow
-                                [0.9, 'red'] // red
+                                [0.1, 'rgba(0,150,0,.5)'], // green
+                                [0.5, 'rgba(250,250,0,.5)'], // yellow
+                                [0.9, 'rgba(150,0,0,.5)'] // red
                             ],
                             lineWidth: 0,
                             minorTickInterval: null,
@@ -298,35 +346,38 @@ angular.module('app.dash', [])
                     };
 
                     // The speed gauge
-                    dash.chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
-                        yAxis: {
-                            min: 0,
-                            max: totalData,
-                            title: {
-                                text: 'Total Data'
-                            }
-                        },
-
-                        credits: {
-                            enabled: false
-                        },
-
-                        series: [{
-                            name: 'Speed',
-                            data: [totalData],
-                            dataLabels: {
-                                format: '<div style="text-align:center"><span style="font-size:25px;color:' +
-                                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
-                                    '<span style="font-size:12px;color:silver">Points of Data</span></div>'
-                            },
-                            tooltip: {
-                                valueSuffix: 'Data Points'
-                            }
-                        }]
-
-                    }));
+                    // dash.chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
+                    //     yAxis: {
+                    //         min: 0,
+                    //         max: totalData,
+                    //         title: {
+                    //             text: 'Total Data'
+                    //         }
+                    //     },
+                    //
+                    //     credits: {
+                    //         enabled: false
+                    //     },
+                    //
+                    //     series: [{
+                    //         name: 'Speed',
+                    //         data: [totalData],
+                    //         dataLabels: {
+                    //             format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                    //                 ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
+                    //                 '<span style="font-size:12px;color:silver">Points of Data</span></div>'
+                    //         },
+                    //         tooltip: {
+                    //             valueSuffix: 'Data Points'
+                    //         }
+                    //     }]
+                    //
+                    // }));
 
                     // The RPM gauge
+                    if (dash.chartRpm != undefined || dash.chartRpm != null) {
+                        dash.chartRpm.destroy();
+                    }
                     dash.chartRpm = Highcharts.chart('container-rpm', Highcharts.merge(gaugeOptions, {
                         yAxis: {
                             min: 0,
@@ -338,7 +389,7 @@ angular.module('app.dash', [])
 
                         series: [{
                             name: 'RPM',
-                            data: [data.current / data.length * 100],
+                            data: [dash.current / data.length * 100],
                             dataLabels: {
                                 format: '<div style="text-align:center"><span style="font-size:25px;color:' +
                                     ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y:.1f}</span><br/>' +
@@ -350,30 +401,31 @@ angular.module('app.dash', [])
                         }]
 
                     }));
-                    dash.chartRpm2 = Highcharts.chart('container-rpm2', Highcharts.merge(gaugeOptions, {
-                        yAxis: {
-                            min: 0,
-                            max: data.length,
-                            title: {
-                                text: 'Current Amount of Data'
-                            }
-                        },
-
-                        series: [{
-                            name: 'RPM',
-                            data: [data.length],
-                            dataLabels: {
-                                format: '<div style="text-align:center"><span style="font-size:25px;color:' +
-                                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y:.1f}</span><br/>' +
-                                    '<span style="font-size:12px;color:silver">Total Days of Data</span></div>'
-                            },
-                            tooltip: {
-                                valueSuffix: ' revolutions/min'
-                            }
-                        }]
-
-                    }));
+                    // dash.chartRpm2 = Highcharts.chart('container-rpm2', Highcharts.merge(gaugeOptions, {
+                    //     yAxis: {
+                    //         min: 0,
+                    //         max: data.length,
+                    //         title: {
+                    //             text: 'Current Amount of Data'
+                    //         }
+                    //     },
+                    //
+                    //     series: [{
+                    //         name: 'RPM',
+                    //         data: [data.length],
+                    //         dataLabels: {
+                    //             format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                    //                 ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y:.1f}</span><br/>' +
+                    //                 '<span style="font-size:12px;color:silver">Total Days of Data</span></div>'
+                    //         },
+                    //         tooltip: {
+                    //             valueSuffix: ' revolutions/min'
+                    //         }
+                    //     }]
+                    //
+                    // }));
                 });
             })
         }
+        window.onload = dash.changeInput;
     }]);

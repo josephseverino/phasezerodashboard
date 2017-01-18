@@ -109,9 +109,15 @@
             <h5 class="countryTitle">Current Country of Interest</h5>
             <h2 class="countryName">{{ dash.inputName }}</h2>
         </div>
-        <div id="container-speed" fill="black" class="topStats"></div>
+        <div  class="topStats">
+          <h5 class="countryTitle">Total Number of Events For: {{dash.inputName}}</h5>
+          <h2 class="countryName">{{ dash.total }}</h2>
+        </div>
         <div id="container-rpm" fill="black" class="topStats"></div>
-        <div id="container-rpm2" class="topStats"></div>
+        <div  class="topStats">
+          <h5 class="countryTitle">Current Days of Data For: {{dash.inputName}} </h5>
+          <h2 class="countryName">{{ dash.current}}</h2>
+        </div>
         <div class="topStats">
             <h5 class="countryTitle">Current Dates of Observed Data</h5>
             <h4 class="countryName">{{dash.dateBeginning}} - {{dash.dateEnding}}</h4></div>
@@ -130,24 +136,130 @@
     </div>
     <div id="mapid"></div>
     <div class="mapToolBox">
-      <div class="form-group">
-        <h2>Tools For Map Graphics</h2>
-        <label class="label" for="sel2">Select event types you are interested in</label>
-        <select class="form-control geoSelect" id="sel2" >
-          <option >Strategic Development</option>
-          <option >Headquarters or base established</option>
-          <option >Battle-Non-state actor overtakes territory</option>
-          <option >Battle-Government regains territory</option>
-          <option >Non-violent transfer of territory</option>
-          <option >Strategic development</option>
-          <option >Riots/Protests</option>
-          <option >Remote violence</option>
-          <option >Violence against civilians</option>
-          <option >Battle-No change of territory</option>
-          <option>Select all event types</option>
-        </select>
-      </div>
+      <form ng-submit="dash.geoMap()">
+        <div class="form-group">
+          <h2 class="toolBoxTitle">Tools For Map Graphics</h2>
+          <div class="borderLine"></div>
+          <label class="label" for="sel2">Event Types</label>
+          <ul class=" geoSelect" id="sel2">
+            <li><input type="checkbox">Strategic Development</input>
+            </li>
+            <li><input type="checkbox">Headquarters or base established</input>
+            </li>
+            <li><input type="checkbox">Battle-Non-state actor overtakes territory</input>
+            </li>
+            <li><input type="checkbox">Battle-Government regains territory</input>
+            </li>
+            <li><input type="checkbox">Non-violent transfer of territory</input>
+            </li>
+            <li><input type="checkbox">Strategic development</input>
+            </li>
+            <li><input type="checkbox">Riots/Protests</input>
+            </li>
+            <li><input type="checkbox">Remote violence</input>
+            </li>
+            <li><input type="checkbox">Violence against civilians</input>
+            </li>
+            <li><input type="checkbox">Battle-No change of territory</input>
+            </li>
+            <li><input type="checkbox">Select all event types</input>
+            </li>
+          </ul>
+        </div>
+        <div class="borderLine"></div>
+        <div class="dataSelector">
+          <label for="sel4">Select Month</label>
+          <select class="form-control " id="sel" >
+            <option value=30 >January</option>
+            <option value=92 >Febuary</option>
+            <option value=180 >March</option>
+            <option value=365 >April</option>
+            <option value=0>May</option>
+            <option value=30 >June</option>
+            <option value=92 >July</option>
+            <option value=180 >August</option>
+            <option value=365 >September</option>
+            <option value=0>October</option>
+            <option value=30 >November</option>
+            <option value=92 >December</option>
+          </select>
+        </div>
+        <div class="dataSelector">
+          <label for="sel5">Select Year</label>
+          <select class="form-control " id="sel5"  ng-model="dash.firstYear">
+            <option value="2016" >2016</option>
+            <option value="2015" >2015</option>
+            <option value="2014" >2014</option>
+            <option value="2013" >2013</option>
+            <option value="2012">2012</option>
+            <option value="2011" >2011</option>
+            <option value="2010" >2010</option>
+            <option value="2009" >2009</option>
+            <option value="2008" >2008</option>
+            <option value="2007">2007</option>
+            <option value="2006" >2006</option>
+            <option value="2005" >2005</option>
+            <option value="2004" >2004</option>
+            <option value="2003" >2003</option>
+            <option value="2002">2002</option>
+            <option value="2001">2001</option>
+            <option value="2000" >2000</option>
+            <option value="1999" >1999</option>
+            <option value="1998" >1998</option>
+            <option value="1997">1997</option>
+          </select>
+        </div>
+        <div class="borderLine"></div>
+        <div class="dataSelector">
+          <label for="sel4">Select Month</label>
+          <select class="form-control " id="sel" >
+            <option value=30 >January</option>
+            <option value=92 >Febuary</option>
+            <option value=180 >March</option>
+            <option value=365 >April</option>
+            <option value=0>May</option>
+            <option value=30 >June</option>
+            <option value=92 >July</option>
+            <option value=180 >August</option>
+            <option value=365 >September</option>
+            <option value=0>October</option>
+            <option value=30 >November</option>
+            <option value=92 >December</option>
+          </select>
+        </div>
+        <div class="dataSelector">
+          <label for="sel5">Select Year</label>
+          <select class="form-control " id="sel5" ng-model="dash.lastYear">
+            <option value="2016" >2016</option>
+            <option value="2015" >2015</option>
+            <option value="2014" >2014</option>
+            <option value="2013" >2013</option>
+            <option value="2012">2012</option>
+            <option value="2011" >2011</option>
+            <option value="2010" >2010</option>
+            <option value="2009" >2009</option>
+            <option value="2008" >2008</option>
+            <option value="2007">2007</option>
+            <option value="2006" >2006</option>
+            <option value="2005" >2005</option>
+            <option value="2004" >2004</option>
+            <option value="2003" >2003</option>
+            <option value="2002">2002</option>
+            <option value="2001">2001</option>
+            <option value="2000" >2000</option>
+            <option value="1999" >1999</option>
+            <option value="1998" >1998</option>
+            <option value="1997">1997</option>
+          </select>
+        </div>
+        <button class="btn geo-submit" type="submit">Geo Data For {{ dash.inputName }}</button>
+      </form>
+      <form ng-submit="dash.clearMap()">
+        <button class="btn geo-submit" type="submit">Clear Map</button>
+      </form>
     </div>
+
+  </body>
 </body>
 
 </html>

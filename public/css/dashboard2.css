@@ -40,10 +40,10 @@ form {
    margin-top:50px;
  }
  .redAlert {
-   color:#ddd;
+   color:#eee;
    font-weight: 900;
    font-size: 60px;
-   background-color: rgba(255,0,0,.4);
+   background-color: rgba(190,0,0,.4);
 
  }
  .topStats {
@@ -59,15 +59,15 @@ form {
 
 #mapid {
   display:inline-block;
-  height: 600px;
-  width:70%;
+  height: 800px;
+  width:65%;
   float:left;
   margin:10px;
 }
 .mapToolBox {
   display:inline-block;
-  height: 600px;
-  width:27%;
+  height: 800px;
+  width:32%;
   float:left;
   margin:10px;
   background-color: white;
@@ -76,7 +76,41 @@ form {
   margin:auto;
   text-align: center;
 }
+.borderLine {
+  height:10px;
+  width:100%;
+  border-bottom: 1px solid grey;
+  margin-bottom: 10px;
+}
 .geoSelect {
   width:90%;
   margin:auto;
+  line-height: 26px;
+}
+.toolBoxTitle {
+  text-align: center;
+}
+ul {
+  list-style-type: none;
+}
+.dataSelector {
+  margin:auto;
+  padding:5px 60px;
+}
+.geo-submit {
+  margin:5px 10%;
+  background-color: white;
+  border:1px solid lightgrey;
+  width:80%;
+  height:auto;
+  color:black;
+  font-size: 22px;
+  display:inline-block;
+  box-shadow: 0px 7px 15px rgba(255,255,255,.4);
+  cursor: pointer;
+  transition: all ease-in-out 300ms;
+}
+.geo-submit:hover {
+  box-shadow: 0px 37px 20px -20px rgba(0,0,0,.2);
+  transform: translate(0px, -10px);
 }

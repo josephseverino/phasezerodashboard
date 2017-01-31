@@ -1,4 +1,6 @@
-var Auth = require('./auth');
+var Auth = require('./auth'),
+    User = require('../models/user'),
+    Acled = require('../models/ACLED');
 
 module.exports = (app) => {
     app.get('/', (req,res) => { // if needed, break this out into a controller!
@@ -18,7 +20,7 @@ module.exports = (app) => {
     });
     // Consume ACLED API
     app.get('/api/ACLED', Auth.grabAcledData);
-
+    app.post('/ACLEDData', Auth.ingestAcled);
     app.get('/login', Auth.render);        // login page
     app.get('/logout', Auth.logout);        // logout route + redirect
     app.post('/login', Auth.login);         // login form submission

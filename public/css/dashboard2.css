@@ -20,6 +20,9 @@ body{
   height:auto;
   background-color: white;
 }
+/*canvas {
+  background-color: #999;
+}*/
 form {
   margin:10px;
   padding:10px;
@@ -59,22 +62,26 @@ form {
 
 #mapid {
   display:inline-block;
-  height: 800px;
+  height: 900px;
   width:65%;
   float:left;
   margin:10px;
 }
 .mapToolBox {
   display:inline-block;
-  height: 800px;
+  height: 900px;
   width:32%;
   float:left;
   margin:10px;
   background-color: white;
 }
 .label {
-  margin:auto;
+  /*margin:15px auto;*/
   text-align: center;
+  color:rgba(0,150,200,.9);
+  font-size: 20px;
+  display:block;
+
 }
 .borderLine {
   height:10px;
@@ -95,7 +102,55 @@ ul {
 }
 .dataSelector {
   margin:auto;
-  padding:5px 60px;
+  padding:5px 10px;
+  display:inline-block;
+  width:36%;
+}
+.inputs {
+  width:100%;
+}
+.days {
+  width:20%;
+}
+.label-data {
+  margin-left:50px;
+  text-align: center;
+}
+.colorBox {
+  height: 20px;
+  width: 20px;
+  padding: 5px;
+  float:right;
+  display:inline-block;
+}
+
+.country-submit {
+  margin-top: 10px;
+  background-color: white;
+  border:1px solid lightgrey;
+  width:auto;
+  padding: 10px;
+  height:auto;
+  color:black;
+  font-size: 22px;
+  display:inline-block;
+  box-shadow: 0px 7px 15px rgba(255,255,255,.4);
+  cursor: pointer;
+  transition: all ease-in-out 300ms;
+}
+.country-submit:hover {
+  color: white;
+  background-color: #777;
+  box-shadow: 0px 37px 20px -20px rgba(0,0,0,.2);
+  transform: translate(0px, -10px);
+}
+#grey {
+  background-color: #777;
+  color: white;
+}
+#grey:hover {
+  color: #777;
+  background-color: white;
 }
 .geo-submit {
   margin:5px 10%;
@@ -111,6 +166,14 @@ ul {
   transition: all ease-in-out 300ms;
 }
 .geo-submit:hover {
+  color: white;
+  background-color: #777;
   box-shadow: 0px 37px 20px -20px rgba(0,0,0,.2);
   transform: translate(0px, -10px);
+}
+.popup {
+  font-size: 15px;
+  color:rgba(0,150,200,.9);
+  display:inline-block;
+  padding-right: 5px;
 }

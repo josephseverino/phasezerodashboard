@@ -1,3 +1,8 @@
+function toNumDate(str) {
+    var cat = str.slice(0, 4) + str.slice(5, 7) + str.slice(8, 10);
+    var dateNum = Number(cat);
+    return dateNum;
+}
 angular.module('app.dash', [])
     .controller('DashController', ['$scope', '$http', function($scope, $http) {
         var dash = this;
@@ -21,6 +26,7 @@ angular.module('app.dash', [])
                 }
                 var totalData = data.length;
                 dash.total = totalData;
+                console.log(data);
                 for (var k = 0; k < data.length; k++) {
                     data[k].event_types = [data[k].event_type];
                     data[k].longitude = Number(data[k].longitude);
@@ -29,33 +35,12 @@ angular.module('app.dash', [])
                     data[k].lon[0] = data[k].longitude;
                     data[k].latitude = Number(data[k].latitude);
                     data[k].lat = [];
-                    if (data[k].event_date.substr(5, 7) == "01") {
-                        data[k].month = "January";
-                    } else if (data[k].event_date.substr(5, 7) == "02") {
-                        data[k].month = "Febuary";
-                    } else if (data[k].event_date.substr(5, 7) == "03") {
-                        data[k].month = "March";
-                    } else if (data[k].event_date.substr(5, 7) == "04") {
-                        data[k].month = "April";
-                    } else if (data[k].event_date.substr(5, 7) == "05") {
-                        data[k].month = "May";
-                    } else if (data[k].event_date.substr(5, 7) == "06") {
-                        data[k].month = "June";
-                    } else if (data[k].event_date.substr(5, 7) == "07") {
-                        data[k].month = "July";
-                    } else if (data[k].event_date.substr(5, 7) == "08") {
-                        data[k].month = "August";
-                    } else if (data[k].event_date.substr(5, 7) == "09") {
-                        data[k].month = "September";
-                    } else if (data[k].event_date.substr(5, 7) == "10") {
-                        data[k].month = "October";
-                    } else if (data[k].event_date.substr(5, 7) == "11") {
-                        data[k].month = "November";
-                    } else if (data[k].event_date.substr(5, 7) == "12") {
-                        data[k].month = "December";
-                    };
                     data[k].lat[0] = data[k].latitude;
                     data[k].fatalities = parseInt(data[k].fatalities);
+                    data[k].deaths = [];
+                    data[k].deaths[0] = data[k].fataleties;
+                    data[k].info = [];
+                    data[k].info[0] = data[k].notes;
                     data[k].number_events = 1;
                 }
 
@@ -77,28 +62,112 @@ angular.module('app.dash', [])
                     maxZoom: 18,
 
                 }).addTo(dash.map);
+
+
                 //adding bubbles to map
+
                 dash.geoMap = () => {
+                  var color = '',
+                      colorFill = '',
+                      fillOpacity = '';
+                    if (dash.eventType == "Strategic Development") {
+                        color = 'rgba(150,0,0,.3)';
+                        fillColor = "rgba(150,0,0,1)";
+                        fillOpacity = ".1";
+                    } else if (dash.eventType == "Headquarters or base established") {
+                        color = 'rgba(0,150,0,.3)';
+                        fillColor = "rgba(0,150,0,1)";
+                        fillOpacity = ".1";
+                    } else if (dash.eventType == "Battle-Non-state actor overtakes territory") {
+                        color = 'rgba(0,0,150,.3)';
+                        fillColor = "rgba(0,0,150,1)";
+                        fillOpacity = ".1";
+                    } else if (dash.eventType == "Battle-Government regains territory") {
+                        color = 'rgba(150,150,0,.3)';
+                        fillColor = "rgba(150,150,0,1)";
+                        fillOpacity = ".1";
+                    } else if (dash.eventType == "Non-violent transfer of territory") {
+                        color = 'rgba(250,150,0,.3)';
+                        fillColor = "rgba(250,50,20,1)";
+                        fillOpacity = ".1";
+                    } else if (dash.eventType == "Strategic development") {
+                        color = 'rgba(150,0,150,.3)';
+                        fillColor = "rgba(150,0,150,1)";
+                        fillOpacity = ".1";
+                    } else if (dash.eventType == "Riots/Protests") {
+                        color = 'rgba(75,0,0,.3)';
+                        fillColor = "rgba(75,0,0,1)";
+                        fillOpacity = ".1";
+                    } else if (dash.eventType == "Remote violence") {
+                        color = 'rgba(0,75,0,.3)';
+                        fillColor = "rgba(0,75,0,1)";
+                        fillOpacity = ".1";
+                    } else if (dash.eventType == "Violence against civilians") {
+                        color = 'rgba(0,0,75,.3)';
+                        fillColor = "rgba(0,0,75,1)";
+                        fillOpacity = ".1";
+                    } else if (dash.eventType == "Battle-No change of territory") {
+                        color = 'rgba(0,150,150,.3)';
+                        fillColor = "rgba(0,150,150,1)";
+                        fillOpacity = ".1";
+                    } else if (dash.eventType == "0") {
+                        color = '';
+                        fillColor = "";
+                        fillOpacity = "";
+                    }
                     for (var i = 0; i < data.length; i++) {
+                        var dateDate = [];
+                        dateDate[i] = toNumDate(data[i].event_date);
+                        //console.log(dateDate[i]);
+                        var startRange = Number(dash.firstYear + dash.firstMonth + dash.firstDay);
+                        var endRange = Number(dash.lastYear + dash.lastMonth + dash.lastDay);
+                        if (dateDate[i] >= startRange && dateDate[i] <= endRange) {
+                            //console.log('hiuguyf')
+                            for (var m = 0; m < data[i].event_types.length; m++) {
+                                if (dash.eventType == data[i].event_types[m]) {
+                                    var Info ='<h1>' + data[i].event_types[m] + '</h1><h3 class="popup">NOTES: </h3>';
+                                    Info += data[i].info[m] + '<br>'+ '<h3 class="popup">DATE: </h3>' + data[i].event_date + '<br>'+
+                                       '<h3 class="popup">FATALITIES: </h3>' + data[i].deaths[m] + '<br>'+
+                                       '<h3 class="popup">SOURCE:</h3>' + data[i].source;
+                                    console.log(dash.eventType, data[i].event_types[m]);
+                                    var latlon = [];
+                                    latlon[0] = data[i].lat[m];
+                                    latlon[1] = data[i].lon[m];
 
-                        if (data[i].year >= dash.firstYear && data[i].year <= dash.lastYear) {
+                                    dash.layer = L.circleMarker(latlon, {
+                                        color: color,
+                                        weight: 1,
+                                        fillColor: fillColor,
+                                        fillOpacity: fillOpacity,
+                                        radius: 30
+                                    }).addTo(dash.map).bindPopup(Info);
 
-                            var latlon = [];
-                            latlon[0] = data[i].latitude;
-                            latlon[1] = data[i].longitude;
-                            console.log(dash.circle);
-                            dash.circle = L.circleMarker(latlon, {
-                                color: 'rgba(150,0,0,0)',
-                                fillColor: 'rgb(150,0,0)',
-                                fillOpacity: 0.1,
-                                radius: 30
-                            }).addTo(dash.map);
+
+                                    dash.clearMap = () => {
+                                      dash.map.remove();
+                                      dash.map = L.map('mapid', {
+                                          center: center,
+                                          minZoom: 5,
+                                          maxZoom: 18,
+                                          tap: true,
+                                          zoom: 6,
+                                          zoomWheelZoom: false,
+                                      });
+                                      L.tileLayer('https://api.mapbox.com/styles/v1/josephseverino/cixtc84tb000v2snxszx9br6g/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoiam9zZXBoc2V2ZXJpbm8iLCJhIjoiY2l4dGE4OWI4MDAwajJxcXExYmpiNTVpaCJ9.H3f8THrMs3FkcvIjphYpAw', {
+                                          attribution: 'MapBox and Leaflet',
+                                          maxZoom: 18,
+
+                                      }).addTo(dash.map);
+
+                                    }
+
+                                }
+
+                            }
                         }
                     }
                 }
-                dash.clearMap = () => {
-                    console.log(dash.map)
-                }
+
 
                 for (var i = 0; i < data.length; i++) {
 
@@ -108,6 +177,8 @@ angular.module('app.dash', [])
                             data[i].lon.push(data[j].longitude);
                             data[i].lat.push(data[j].latitude);
                             data[i].event_types.push(data[j].event_type);
+                            data[i].deaths.push(data[j].fatalities);
+                            data[i].info.push(data[j].notes);
                             data[i].fatalities += data[j].fatalities;
                             data.splice(j, 1);
                             j -= 1;
@@ -210,9 +281,9 @@ angular.module('app.dash', [])
                         }]
                     },
                     options: {
-                      legend: {
-                        position: 'left',
-                      }
+                        legend: {
+                            position: 'left',
+                        }
                     }
                 });
                 var ctx = document.getElementById("fatalitiesChart");

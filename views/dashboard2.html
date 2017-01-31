@@ -100,7 +100,7 @@
               <option value=365 >1 Year</option>
               <option value=0>All Data</option>
             </select>
-            <button class="btn btn-default" type="submit">Let's Change Things Up!</button>
+            <button class="btn country-submit" type="submit">Let's Change Things Up!</button>
             <h2 class="countryName redAlert">{{ dash.loading }}</h2>
         </div>
     </form>
@@ -140,54 +140,145 @@
         <div class="form-group">
           <h2 class="toolBoxTitle">Tools For Map Graphics</h2>
           <div class="borderLine"></div>
-          <label class="label" for="sel2">Event Types</label>
-          <ul class=" geoSelect" id="sel2">
-            <li><input type="checkbox">Strategic Development</input>
-            </li>
-            <li><input type="checkbox">Headquarters or base established</input>
-            </li>
-            <li><input type="checkbox">Battle-Non-state actor overtakes territory</input>
-            </li>
-            <li><input type="checkbox">Battle-Government regains territory</input>
-            </li>
-            <li><input type="checkbox">Non-violent transfer of territory</input>
-            </li>
-            <li><input type="checkbox">Strategic development</input>
-            </li>
-            <li><input type="checkbox">Riots/Protests</input>
-            </li>
-            <li><input type="checkbox">Remote violence</input>
-            </li>
-            <li><input type="checkbox">Violence against civilians</input>
-            </li>
-            <li><input type="checkbox">Battle-No change of territory</input>
-            </li>
-            <li><input type="checkbox">Select all event types</input>
-            </li>
-          </ul>
+          <h4 class="label">Event Types</h4>
+          <div class="geoSelect" id="sel2">
+            <label class="radio">
+              <input
+               type="radio"
+               name="optradio"
+               ng-model="dash.eventType"
+               value="Strategic Development">Strategic Development
+             <div class="colorBox" style="background-color: rgba(150,0,0,.1); border: 1px solid rgba(150,0,0,.3)"></div></label>
+            <label class="radio">
+              <input
+               type="radio"
+               name="optradio"
+               ng-model="dash.eventType"
+               value="Headquarters or base established">Headquarters or base established
+             <div class="colorBox" style="background-color: rgba(0,150,0,.1); border: 1px solid rgba(0,150,0,.3)"></div></label>
+            <label class="radio">
+              <input
+               type="radio"
+               name="optradio"
+               ng-model="dash.eventType"
+               value="Battle-Non-state actor overtakes territory">Battle-Non-state actor overtakes territory
+             <div class="colorBox" style="background-color: rgba(0,0,150,.1); border: 1px solid  rgba(0,0,150,.3)"></div></label>
+            <label class="radio">
+              <input
+               type="radio"
+               name="optradio"
+               ng-model="dash.eventType"
+               value="Battle-Government regains territory">Battle-Government regains territory
+             <div class="colorBox" style="background-color: rgba(150,150,0,.1); border: 1px solid rgba(150,150,0,.3)"></div></label>
+            <label class="radio">
+              <input
+               type="radio"
+               name="optradio"
+               ng-model="dash.eventType"
+               value="Non-violent transfer of territory">Non-violent transfer of territory
+             <div class="colorBox" style="background-color: rgba(250,150,0,.1); border: 1px solid rgba(250,150,0,.3)"></div></label>
+            <label class="radio">
+              <input
+               type="radio"
+               name="optradio"
+               ng-model="dash.eventType"
+               value="Strategic development">Strategic development
+             <div class="colorBox" style="background-color: rgba(150,0,150,.1); border: 1px solid rgba(150,0,150,.3)"></div></label>
+            <label class="radio">
+              <input
+               type="radio"
+               name="optradio"
+               ng-model="dash.eventType"
+               value="Riots/Protests">Riots/Protests
+             <div class="colorBox" style="background-color: rgba(75,0,0,.1); border: 1px solid rgba(75,0,0,.3)"></div></label>
+            <label class="radio">
+              <input
+               type="radio"
+               name="optradio"
+               ng-model="dash.eventType"
+               value="Remote violence">Remote violence
+             <div class="colorBox" style="background-color: rgba(0,75,0,.1); border: 1px solid rgba(0,75,0,.3)"></div></label>
+            <label class="radio">
+              <input
+               type="radio"
+               name="optradio"
+               ng-model="dash.eventType"
+               value="Violence against civilians">Violence against civilians
+             <div class="colorBox" style="background-color: rgba(0,0,75,.1); border: 1px solid rgba(0,0,75,.3)"></div></label>
+            <label class="radio">
+              <input
+               type="radio"
+               name="optradio"
+               ng-model="dash.eventType"
+               value="Battle-No change of territory">Battle-No change of territory
+             <div class="colorBox" style="background-color: rgba(0,150,150,.1); border: 1px solid rgba(0,150,150,.3)"></div></label>
+            <label class="radio">
+              <input
+               type="radio"
+               name="optradio"
+               ng-model="dash.eventType"
+               value="0">Select all event types</label>
+          </div>
         </div>
         <div class="borderLine"></div>
+        <div class="label">Start Time Period</div>
         <div class="dataSelector">
-          <label for="sel4">Select Month</label>
-          <select class="form-control " id="sel" >
-            <option value=30 >January</option>
-            <option value=92 >Febuary</option>
-            <option value=180 >March</option>
-            <option value=365 >April</option>
-            <option value=0>May</option>
-            <option value=30 >June</option>
-            <option value=92 >July</option>
-            <option value=180 >August</option>
-            <option value=365 >September</option>
-            <option value=0>October</option>
-            <option value=30 >November</option>
-            <option value=92 >December</option>
+          <label class="label-date" for="sel4">Select Month</label>
+          <select class="form-control  inputs" id="sel4" ng-model="dash.firstMonth">
+            <option value='01' selected>January</option>
+            <option value='02' >Febuary</option>
+            <option value='03' >March</option>
+            <option value='04' >April</option>
+            <option value='05'>May</option>
+            <option value='06' >June</option>
+            <option value='07' >July</option>
+            <option value='08' >August</option>
+            <option value='09' >September</option>
+            <option value='10'>October</option>
+            <option value='11' >November</option>
+            <option value='12' >December</option>
+          </select>
+        </div>
+        <div class="dataSelector days">
+          <label class="label-date" for="sel7">Select Day</label>
+          <select class="form-control  inputs" id="sel7" ng-model="dash.firstDay">
+            <option value='01' selected>1</option>
+            <option value='02' >2</option>
+            <option value='03' >3</option>
+            <option value='04' >4</option>
+            <option value='05'>5</option>
+            <option value='06' >6</option>
+            <option value='07' >7</option>
+            <option value='08' >8</option>
+            <option value='09' >9</option>
+            <option value='10'>10</option>
+            <option value='11' >11</option>
+            <option value='12' >12</option>
+            <option value='13' >13</option>
+            <option value='14' >14</option>
+            <option value='15'>15</option>
+            <option value='16' >16</option>
+            <option value='17' >17</option>
+            <option value='18' >18</option>
+            <option value='19' >19</option>
+            <option value='20'>20</option>
+            <option value='21' >21</option>
+            <option value='22' >22</option>
+            <option value='23'>23</option>
+            <option value='24' >24</option>
+            <option value='25' >25</option>
+            <option value='26' >26</option>
+            <option value='27' >27</option>
+            <option value='28'>28</option>
+            <option value='29' >29</option>
+            <option value='30' >30</option>
+            <option value='31' >31</option>
           </select>
         </div>
         <div class="dataSelector">
-          <label for="sel5">Select Year</label>
-          <select class="form-control " id="sel5"  ng-model="dash.firstYear">
-            <option value="2016" >2016</option>
+          <label class="label-date" for="sel5">Select Year</label>
+          <select class="form-control inputs" id="sel5"  ng-model="dash.firstYear">
+            <option value="2016" selected>2016</option>
             <option value="2015" >2015</option>
             <option value="2014" >2014</option>
             <option value="2013" >2013</option>
@@ -210,26 +301,64 @@
           </select>
         </div>
         <div class="borderLine"></div>
+        <div class="label">End Time Period</div>
         <div class="dataSelector">
-          <label for="sel4">Select Month</label>
-          <select class="form-control " id="sel" >
-            <option value=30 >January</option>
-            <option value=92 >Febuary</option>
-            <option value=180 >March</option>
-            <option value=365 >April</option>
-            <option value=0>May</option>
-            <option value=30 >June</option>
-            <option value=92 >July</option>
-            <option value=180 >August</option>
-            <option value=365 >September</option>
-            <option value=0>October</option>
-            <option value=30 >November</option>
-            <option value=92 >December</option>
+          <label class="label-date" for="sel4">Select Month</label>
+          <select class="form-control  inputs" id="sel4" ng-model="dash.lastMonth">
+            <option value='01' selected>January</option>
+            <option value='02' >Febuary</option>
+            <option value='03' >March</option>
+            <option value='04' >April</option>
+            <option value='05'>May</option>
+            <option value='06' >June</option>
+            <option value='07' >July</option>
+            <option value='08' >August</option>
+            <option value='09' >September</option>
+            <option value='10'>October</option>
+            <option value='11' >November</option>
+            <option value='12' >December</option>
+          </select>
+        </div>
+        <div class="dataSelector days">
+          <label class="label-date" for="sel7">Select Day</label>
+          <select class="form-control  inputs" id="sel7" ng-model="dash.lastDay">
+            <option value='01' selected>1</option>
+            <option value='02' >2</option>
+            <option value='03' >3</option>
+            <option value='04' >4</option>
+            <option value='05'>5</option>
+            <option value='06' >6</option>
+            <option value='07' >7</option>
+            <option value='08' >8</option>
+            <option value='09' >9</option>
+            <option value='10'>10</option>
+            <option value='11' >11</option>
+            <option value='12' >12</option>
+            <option value='13' >13</option>
+            <option value='14' >14</option>
+            <option value='15'>15</option>
+            <option value='16' >16</option>
+            <option value='17' >17</option>
+            <option value='18' >18</option>
+            <option value='19' >19</option>
+            <option value='20'>20</option>
+            <option value='21' >21</option>
+            <option value='22' >22</option>
+            <option value='23'>23</option>
+            <option value='24' >24</option>
+            <option value='25' >25</option>
+            <option value='26' >26</option>
+            <option value='27' >27</option>
+            <option value='28'>28</option>
+            <option value='29' >29</option>
+            <option value='30' >30</option>
+            <option value='31' >31</option>
           </select>
         </div>
         <div class="dataSelector">
-          <label for="sel5">Select Year</label>
-          <select class="form-control " id="sel5" ng-model="dash.lastYear">
+          <label class="label-date" for="sel5">Select Year</label>
+          <select class="form-control  inputs" id="sel5" ng-model="dash.lastYear">
+            <option value="2017" selected>2017</option>
             <option value="2016" >2016</option>
             <option value="2015" >2015</option>
             <option value="2014" >2014</option>
@@ -255,7 +384,7 @@
         <button class="btn geo-submit" type="submit">Geo Data For {{ dash.inputName }}</button>
       </form>
       <form ng-submit="dash.clearMap()">
-        <button class="btn geo-submit" type="submit">Clear Map</button>
+        <button class="btn geo-submit" id="grey" type="submit">Clear Map</button>
       </form>
     </div>
 

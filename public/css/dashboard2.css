@@ -30,10 +30,25 @@ form {
 .mySelect {
   width: 45%;
 }
+
+.topToolBar {
+  width: 48vw;
+  float:left;
+  height: auto;
+}
+.topToolBar2 {
+  width: 48vw;
+  float: right;
+  height: auto;
+}
+.buttonTools {
+  width:99vw;
+  height:auto;
+}
  .countryTitle {
    color: #666;
    text-align: center;
-   margin-top:15px;
+   margin-top:0px;
  }
 
  .countryName {
@@ -78,7 +93,7 @@ form {
 .label {
   /*margin:15px auto;*/
   text-align: center;
-  color:rgba(0,150,200,.9);
+  color:#FF6600;
   font-size: 20px;
   display:block;
 
@@ -152,6 +167,11 @@ ul {
   color: #777;
   background-color: white;
 }
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+    background: rgba(0,0,0,.7);
+    color: white;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.7);
+}
 .geo-submit {
   margin:5px 10%;
   background-color: white;
@@ -173,7 +193,7 @@ ul {
 }
 .popup {
   font-size: 15px;
-  color:rgba(0,150,200,.9);
+  color:#FF6600;
   display:inline-block;
   padding-right: 5px;
 }

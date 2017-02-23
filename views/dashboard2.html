@@ -92,16 +92,181 @@
               <option>Zambia</option>
               <option>Zimbabwe</option>
             </select>
-            <label for="sel1">Select Number of Days You Like to Observe:</label>
+            <!-- <label for="sel1">Select Number of Days You Like to Observe:</label>
             <select class="form-control mySelect" id="sel1" ng-model="dash.days">
               <option value=30 >1 Month</option>
               <option value=92 >3 Months</option>
               <option value=180 >6 Months</option>
               <option value=365 >1 Year</option>
               <option value=0>All Data</option>
-            </select>
-            <button class="btn country-submit" type="submit">Let's Change Things Up!</button>
-            <h2 class="countryName redAlert">{{ dash.loading }}</h2>
+            </select> -->
+            <div class="topToolBar">
+              <h3>SELECT START DATE</h3>
+              <div class="dataSelector">
+                <label class="label-date" for="sel4">Select Month</label>
+                <select class="form-control  inputs_top" id="sel4" ng-model="dash.startMonth">
+                  <option value='01' selected>January</option>
+                  <option value='02' >Febuary</option>
+                  <option value='03' >March</option>
+                  <option value='04' >April</option>
+                  <option value='05'>May</option>
+                  <option value='06' >June</option>
+                  <option value='07' >July</option>
+                  <option value='08' >August</option>
+                  <option value='09' >September</option>
+                  <option value='10'>October</option>
+                  <option value='11' >November</option>
+                  <option value='12' >December</option>
+                </select>
+              </div>
+              <div class="dataSelector days">
+                <label class="label-date" for="sel7">Select Day</label>
+                <select class="form-control  inputs_top" id="sel7" ng-model="dash.startDay">
+                  <option value='01' selected>1</option>
+                  <option value='02' >2</option>
+                  <option value='03' >3</option>
+                  <option value='04' >4</option>
+                  <option value='05'>5</option>
+                  <option value='06' >6</option>
+                  <option value='07' >7</option>
+                  <option value='08' >8</option>
+                  <option value='09' >9</option>
+                  <option value='10'>10</option>
+                  <option value='11' >11</option>
+                  <option value='12' >12</option>
+                  <option value='13' >13</option>
+                  <option value='14' >14</option>
+                  <option value='15'>15</option>
+                  <option value='16' >16</option>
+                  <option value='17' >17</option>
+                  <option value='18' >18</option>
+                  <option value='19' >19</option>
+                  <option value='20'>20</option>
+                  <option value='21' >21</option>
+                  <option value='22' >22</option>
+                  <option value='23'>23</option>
+                  <option value='24' >24</option>
+                  <option value='25' >25</option>
+                  <option value='26' >26</option>
+                  <option value='27' >27</option>
+                  <option value='28'>28</option>
+                  <option value='29' >29</option>
+                  <option value='30' >30</option>
+                  <option value='31' >31</option>
+                </select>
+              </div>
+              <div class="dataSelector">
+                <label class="label-date" for="sel5">Select Year</label>
+                <select class="form-control inputs_top" id="sel5"  ng-model="dash.startYear">
+                  <option value="2016" selected>2016</option>
+                  <option value="2015" >2015</option>
+                  <option value="2014" >2014</option>
+                  <option value="2013" >2013</option>
+                  <option value="2012">2012</option>
+                  <option value="2011" >2011</option>
+                  <option value="2010" >2010</option>
+                  <option value="2009" >2009</option>
+                  <option value="2008" >2008</option>
+                  <option value="2007">2007</option>
+                  <option value="2006" >2006</option>
+                  <option value="2005" >2005</option>
+                  <option value="2004" >2004</option>
+                  <option value="2003" >2003</option>
+                  <option value="2002">2002</option>
+                  <option value="2001">2001</option>
+                  <option value="2000" >2000</option>
+                  <option value="1999" >1999</option>
+                  <option value="1998" >1998</option>
+                  <option value="1997">1997</option>
+                </select>
+              </div>
+            </div>
+            <div class="topToolBar2">
+              <h3>SELECT END DATE</h3>
+              <div class="dataSelector">
+                <label class="label-date" for="sel4">Select Month</label>
+                <select class="form-control  inputs_top" id="sel4" ng-model="dash.endMonth">
+                  <option value='01' selected>January</option>
+                  <option value='02' >Febuary</option>
+                  <option value='03' >March</option>
+                  <option value='04' >April</option>
+                  <option value='05'>May</option>
+                  <option value='06' >June</option>
+                  <option value='07' >July</option>
+                  <option value='08' >August</option>
+                  <option value='09' >September</option>
+                  <option value='10'>October</option>
+                  <option value='11' >November</option>
+                  <option value='12' >December</option>
+                </select>
+              </div>
+              <div class="dataSelector days">
+                <label class="label-date" for="sel7">Select Day</label>
+                <select class="form-control  inputs_top" id="sel7" ng-model="dash.endDay">
+                  <option value='01' selected>1</option>
+                  <option value='02' >2</option>
+                  <option value='03' >3</option>
+                  <option value='04' >4</option>
+                  <option value='05'>5</option>
+                  <option value='06' >6</option>
+                  <option value='07' >7</option>
+                  <option value='08' >8</option>
+                  <option value='09' >9</option>
+                  <option value='10'>10</option>
+                  <option value='11' >11</option>
+                  <option value='12' >12</option>
+                  <option value='13' >13</option>
+                  <option value='14' >14</option>
+                  <option value='15'>15</option>
+                  <option value='16' >16</option>
+                  <option value='17' >17</option>
+                  <option value='18' >18</option>
+                  <option value='19' >19</option>
+                  <option value='20'>20</option>
+                  <option value='21' >21</option>
+                  <option value='22' >22</option>
+                  <option value='23'>23</option>
+                  <option value='24' >24</option>
+                  <option value='25' >25</option>
+                  <option value='26' >26</option>
+                  <option value='27' >27</option>
+                  <option value='28'>28</option>
+                  <option value='29' >29</option>
+                  <option value='30' >30</option>
+                  <option value='31' >31</option>
+                </select>
+              </div>
+              <div class="dataSelector">
+                <label class="label-date" for="sel5">Select Year</label>
+                <select class="form-control inputs_top" id="sel5"  ng-model="dash.endYear">
+                  <option value="2017" selected>2017</option>
+                  <option value="2016">2016</option>
+                  <option value="2015" >2015</option>
+                  <option value="2014" >2014</option>
+                  <option value="2013" >2013</option>
+                  <option value="2012">2012</option>
+                  <option value="2011" >2011</option>
+                  <option value="2010" >2010</option>
+                  <option value="2009" >2009</option>
+                  <option value="2008" >2008</option>
+                  <option value="2007">2007</option>
+                  <option value="2006" >2006</option>
+                  <option value="2005" >2005</option>
+                  <option value="2004" >2004</option>
+                  <option value="2003" >2003</option>
+                  <option value="2002">2002</option>
+                  <option value="2001">2001</option>
+                  <option value="2000" >2000</option>
+                  <option value="1999" >1999</option>
+                  <option value="1998" >1998</option>
+                  <option value="1997">1997</option>
+                </select>
+              </div>
+            </div>
+            <div class="buttonTools">
+              <button class="btn country-submit" type="submit">Let's Change Things Up!</button>
+              <h2 class="countryName redAlert">{{ dash.loading }}</h2>
+            </div>
         </div>
     </form>
     <div class="metricsContainer">
@@ -110,13 +275,25 @@
             <h2 class="countryName">{{ dash.inputName }}</h2>
         </div>
         <div  class="topStats">
-          <h5 class="countryTitle">Total Number of Events For: {{dash.inputName}}</h5>
-          <h2 class="countryName">{{ dash.total }}</h2>
+          <h5 class="countryTitle">Total Number of Events For {{dash.inputName}}: {{ dash.total }}</h5>
+          <h5 class="countryName">Total Number of Days of events: {{ dash.totalDates }}</h5>
         </div>
-        <div id="container-rpm" fill="black" class="topStats"></div>
+        <div  class="topStats">
+          <h5 class="countryTitle">Strategic Development: {{ dash.strDev }}%</h5>
+          <h5 class="countryTitle">Headquarters or base established: {{ dash.hq_base  }}%</h5>
+          <h5 class="countryTitle">Battle-Non-state actor overtakes territory: {{ dash.battle_no_state }}%</h5>
+          <h5 class="countryTitle">Battle-Government regains territory: {{ dash.battle_gov  }}%</h5>
+          <h5 class="countryTitle">Non-violent transfer of territory: {{ dash.non_violent }}%</h5>
+          <h5 class="countryTitle">Riots/Protests: {{ dash.riots }}%</h5>
+          <h5 class="countryTitle">Remote violence: {{ dash.remoteViol }}%</h5>
+          <h5 class="countryTitle">Violence against civilians: {{ dash.violenceCiv }}%</h5>
+          <h5 class="countryTitle">Battle-No change of territory: {{ dash.battle_no_change }}%</h5>
+
+        </div>
+        <!-- <div id="container-rpm" fill="black" class="topStats"></div> -->
         <div  class="topStats">
           <h5 class="countryTitle">Current Days of Data For: {{dash.inputName}} </h5>
-          <h2 class="countryName">{{ dash.current}}</h2>
+          <h4 class="countryName">{{ dash.current}} which is {{ dash.dayPercent}}% of the total days</h4>
         </div>
         <div class="topStats">
             <h5 class="countryTitle">Current Dates of Observed Data</h5>
@@ -133,6 +310,9 @@
     </div>
     <div id="graphics_container">
         <canvas id="eventChart" height="30" width="100"></canvas>
+    </div>
+    <div id="graphics_container">
+        <canvas id="individualEventChart" height="40" width="100"></canvas>
     </div>
     <div id="mapid"></div>
     <div class="mapToolBox">
@@ -177,13 +357,6 @@
                ng-model="dash.eventType"
                value="Non-violent transfer of territory">Non-violent transfer of territory
              <div class="colorBox" style="background-color: rgba(250,150,0,.1); border: 1px solid rgba(250,150,0,.3)"></div></label>
-            <label class="radio">
-              <input
-               type="radio"
-               name="optradio"
-               ng-model="dash.eventType"
-               value="Strategic development">Strategic development
-             <div class="colorBox" style="background-color: rgba(150,0,150,.1); border: 1px solid rgba(150,0,150,.3)"></div></label>
             <label class="radio">
               <input
                type="radio"
@@ -387,8 +560,10 @@
         <button class="btn geo-submit" id="grey" type="submit">Clear Map</button>
       </form>
     </div>
+    <div id="container-rpm" fill="black" class="topStats"></div>
 
-  </body>
+
+
 </body>
 
 </html>

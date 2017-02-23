@@ -1,5 +1,5 @@
 var User = require('../models/user'),
-    Acled = require('../models/ACLED');
+
     request = require('request'),
     bcrypt = require('bcryptjs'),
     errors = {
@@ -86,22 +86,22 @@ module.exports = {
             }
         });
     },
-    ingestAcled: (req, res) => {
-        console.info('Register payload:'.cyan, req.body);
-
-        var newAcled = new Acled(req.body);
-
-        newAcled.save((err, Acled) => {
-            if (err) {
-                console.log('#ERROR#'.red, 'Could not save new Acled :(', err);
-                res.status(500).send(errors.general);
-            } else {
-                console.log('New Acled created in MongoDB:', Acled);
-                // req.session.AcledId = Acled._id;
-                // res.end();
-            }
-        });
-    },
+    // ingestAcled: (req, res) => {
+    //     console.info('Register payload:'.cyan, req.body);
+    //
+    //     var newAcled = new Acled(req.body);
+    //
+    //     newAcled.save((err, Acled) => {
+    //         if (err) {
+    //             console.log('#ERROR#'.red, 'Could not save new Acled :(', err);
+    //             res.status(500).send(errors.general);
+    //         } else {
+    //             console.log('New Acled created in MongoDB:', Acled);
+    //             // req.session.AcledId = Acled._id;
+    //             // res.end();
+    //         }
+    //     });
+    // },
     // Auth middleware functions, grouped
     middlewares: {
         session: (req, res, next) => {

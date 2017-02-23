@@ -8,8 +8,6 @@ angular.module('app.dash', [])
         var dash = this;
         dash.inputName = 'Nigeria';
         dash.days = 30;
-
-
         dash.changeInput = () => {
             dash.loading = 'Sit back while we prepare your data...';
             $http({
@@ -20,12 +18,12 @@ angular.module('app.dash', [])
                 }
             }).then(function(returnData) {
                 var data = {};
-                data = returnData.data.data;
+                data = returnData.data.data.reverse();
                 if (data) {
                     dash.loading = '';
                 }
-                var totalData = data.length;
-                dash.total = totalData;
+                dash.total = data.length;
+
                 console.log(data);
                 for (var k = 0; k < data.length; k++) {
                     data[k].event_types = [data[k].event_type];
@@ -38,7 +36,11 @@ angular.module('app.dash', [])
                     data[k].lat[0] = data[k].latitude;
                     data[k].fatalities = parseInt(data[k].fatalities);
                     data[k].deaths = [];
-                    data[k].deaths[0] = data[k].fataleties;
+                    data[k].deaths[0] = data[k].fatalities;
+                    data[k].act1 = [];
+                    data[k].act1[0] = data[k].actor1;
+                    data[k].act2 = [];
+                    data[k].act2[0] = data[k].actor2;
                     data[k].info = [];
                     data[k].info[0] = data[k].notes;
                     data[k].number_events = 1;
@@ -60,16 +62,13 @@ angular.module('app.dash', [])
                 L.tileLayer('https://api.mapbox.com/styles/v1/josephseverino/cixtc84tb000v2snxszx9br6g/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoiam9zZXBoc2V2ZXJpbm8iLCJhIjoiY2l4dGE4OWI4MDAwajJxcXExYmpiNTVpaCJ9.H3f8THrMs3FkcvIjphYpAw', {
                     attribution: 'MapBox and Leaflet',
                     maxZoom: 18,
-
                 }).addTo(dash.map);
 
-
                 //adding bubbles to map
-
                 dash.geoMap = () => {
-                  var color = '',
-                      colorFill = '',
-                      fillOpacity = '';
+                    var color = '',
+                        colorFill = '',
+                        fillOpacity = '';
                     if (dash.eventType == "Strategic Development") {
                         color = 'rgba(150,0,0,.3)';
                         fillColor = "rgba(150,0,0,1)";
@@ -125,10 +124,12 @@ angular.module('app.dash', [])
                             //console.log('hiuguyf')
                             for (var m = 0; m < data[i].event_types.length; m++) {
                                 if (dash.eventType == data[i].event_types[m]) {
-                                    var Info ='<h1>' + data[i].event_types[m] + '</h1><h3 class="popup">NOTES: </h3>';
-                                    Info += data[i].info[m] + '<br>'+ '<h3 class="popup">DATE: </h3>' + data[i].event_date + '<br>'+
-                                       '<h3 class="popup">FATALITIES: </h3>' + data[i].deaths[m] + '<br>'+
-                                       '<h3 class="popup">SOURCE:</h3>' + data[i].source;
+                                    var Info = '<h1>' + data[i].event_types[m] + '</h1><h3 class="popup">NOTES: </h3>';
+                                    Info += data[i].info[m] + '<br>' + '<h3 class="popup">DATE: </h3>' + data[i].event_date + '<br>' +
+                                        '<h3 class="popup">FATALITIES: </h3>' + data[i].deaths[m] + '<br>' +
+                                        '<h3 class="popup">SOURCE:</h3>' + data[i].source + '<br>' +
+                                        '<h3 class="popup">ACTOR 1:</h3>' + data[i].act1[m] + '<br>' +
+                                        '<h3 class="popup">ACTOR 2:</h3>' + data[i].act2[m];
                                     console.log(dash.eventType, data[i].event_types[m]);
                                     var latlon = [];
                                     latlon[0] = data[i].lat[m];
@@ -144,20 +145,20 @@ angular.module('app.dash', [])
 
 
                                     dash.clearMap = () => {
-                                      dash.map.remove();
-                                      dash.map = L.map('mapid', {
-                                          center: center,
-                                          minZoom: 5,
-                                          maxZoom: 18,
-                                          tap: true,
-                                          zoom: 6,
-                                          zoomWheelZoom: false,
-                                      });
-                                      L.tileLayer('https://api.mapbox.com/styles/v1/josephseverino/cixtc84tb000v2snxszx9br6g/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoiam9zZXBoc2V2ZXJpbm8iLCJhIjoiY2l4dGE4OWI4MDAwajJxcXExYmpiNTVpaCJ9.H3f8THrMs3FkcvIjphYpAw', {
-                                          attribution: 'MapBox and Leaflet',
-                                          maxZoom: 18,
+                                        dash.map.remove();
+                                        dash.map = L.map('mapid', {
+                                            center: center,
+                                            minZoom: 5,
+                                            maxZoom: 18,
+                                            tap: true,
+                                            zoom: 6,
+                                            zoomWheelZoom: false,
+                                        });
+                                        L.tileLayer('https://api.mapbox.com/styles/v1/josephseverino/cixtc84tb000v2snxszx9br6g/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoiam9zZXBoc2V2ZXJpbm8iLCJhIjoiY2l4dGE4OWI4MDAwajJxcXExYmpiNTVpaCJ9.H3f8THrMs3FkcvIjphYpAw', {
+                                            attribution: 'MapBox and Leaflet',
+                                            maxZoom: 18,
 
-                                      }).addTo(dash.map);
+                                        }).addTo(dash.map);
 
                                     }
 
@@ -167,7 +168,6 @@ angular.module('app.dash', [])
                         }
                     }
                 }
-
 
                 for (var i = 0; i < data.length; i++) {
 
@@ -180,17 +180,42 @@ angular.module('app.dash', [])
                             data[i].deaths.push(data[j].fatalities);
                             data[i].info.push(data[j].notes);
                             data[i].fatalities += data[j].fatalities;
+                            data[i].act1.push(data[j].actor1);
+                            data[i].act2.push(data[j].actor2);
                             data.splice(j, 1);
                             j -= 1;
                         }
                     }
                 }
-                dash.current = dash.days;
-                if (dash.current == 0) {
-                    dash.current = data.length - 1;
+                var indexStart = data.length - 31;
+                // console.log(toNumDate(data[4].event_date));
+                // console.log(Number(dash.startYear + dash.startMonth + dash.startDay));
+                // console.log(Number(dash.endYear + dash.endMonth + dash.endDay));
+                for (var i = 0; i < data.length; i++) {
+
+                    if (toNumDate(data[i].event_date) >= Number(dash.startYear + dash.startMonth + dash.startDay)) {
+                        indexStart = i;
+                        //console.log('line 193:startdate', i);
+                        break;
+                    }
                 }
-                dash.dateBeginning = data[dash.current].event_date;
-                dash.dateEnding = data[0].event_date;
+                var indexend = data.length;
+                for (var i = 0; i < data.length; i++) {
+
+                    if (toNumDate(data[i].event_date) >= Number(dash.endYear + dash.endMonth + dash.endDay)) {
+                        indexend = i;
+                        //console.log('line 202:enddate', i);
+                        break;
+                    }
+                }
+                dash.totalDates = data.length;
+                dash.current = indexend - indexStart || 30;
+                dash.dayPercent = (((indexend - indexStart || 30) / data.length) * 100).toFixed(1);
+                // if (dash.current == 0) {
+                //     dash.current = data.length - 1;
+                // }
+                dash.dateBeginning = dash.startYear + "-" + dash.startMonth + "-" + dash.startDay;
+                dash.dateEnding = dash.endYear + "-" + dash.endMonth + "-" + dash.endDay;
                 //console.log(data);
 
                 var deaths = [],
@@ -199,7 +224,7 @@ angular.module('app.dash', [])
                     counts = {},
                     event_type = [counts];
 
-                for (var i = dash.current; i >= 0; i--) {
+                for (var i = 0; i < data.length; i++) {
                     event_type.push(data[i].event_types
                         .forEach(function(x) {
                             counts[x] = (counts[x] || 0) + 1;
@@ -208,8 +233,112 @@ angular.module('app.dash', [])
 
                     deaths.push(data[i].fatalities);
                     dates.push(data[i].event_date);
-                    events.push(data[i].number_events)
+                    events.push(data[i].number_events);
                 }
+
+                //creating arrays for individual event data
+                var strDev = [],
+                    hq_base = [],
+                    battle_no_state = [],
+                    battle_gov = [],
+                    non_violent = [],
+                    stratDev = [],
+                    riots = [],
+                    remoteViol = [],
+                    violenceCiv = [],
+                    battle_no_change = [],
+                    total_SD = 1,
+                    total_HQ = 0,
+                    total_BNS = 0,
+                    total_BG = 0,
+                    total_NV = 0,
+                    total_R = 0,
+                    total_RV = 0,
+                    total_VC = 0,
+                    total_BNC = 0;
+
+                for (var i = 0; i < data.length; i++) {
+                    strDev.push(0);
+                    hq_base.push(0);
+                    battle_no_state.push(0);
+                    battle_gov.push(0);
+                    non_violent.push(0);
+                    stratDev.push(0);
+                    riots.push(0);
+                    remoteViol.push(0);
+                    violenceCiv.push(0);
+                    battle_no_change.push(0);
+                }
+
+                for (var i = 0; i < data.length; i++) {
+                    for (var j = 0; j < data[i].event_types.length; j++) {
+                        // console.log(data[i].event_types[j]);
+                        if (data[i].event_types[j] == "Strategic Development") {
+                            strDev[i] += 1;
+                            total_SD += 1;
+                        } else if (data[i].event_types[j] == "Headquarters or base established") {
+                            hq_base[i] += 1;
+                            total_HQ += 1;
+                        } else if (data[i].event_types[j] == "Battle-Non-state actor overtakes territory") {
+                            battle_no_state[i] += 1;
+                            total_BNS += 1;
+                        } else if (data[i].event_types[j] == "Battle-Government regains territory") {
+                            battle_gov[i] += 1;
+                            total_BG += 1;
+                        } else if (data[i].event_types[j] == "Non-violent transfer of territory") {
+                            non_violent[i] += 1;
+                            total_NV += 1;
+                        } else if (data[i].event_types[j] == "Riots/Protests") {
+                            riots[i] += 1;
+                            total_R += 1;
+                        } else if (data[i].event_types[j] == "Remote violence") {
+                            remoteViol[i] += 1;
+                            total_RV += 1;
+                        } else if (data[i].event_types[j] == "Violence against civilians") {
+                            violenceCiv[i] += 1;
+                            total_VC += 1;
+                        } else if (data[i].event_types[j] == "Battle-No change of territory") {
+                            battle_no_change[i] += 1;
+                            total_BNC += 1;
+                        }
+                    }
+                }
+                var strDev_range = 0,
+                    hq_base_range = 0,
+                    battle_no_state_range = 0,
+                    battle_gov_range = 0,
+                    non_violent_range = 0,
+                    stratDev_range = 0,
+                    riots_range = 0,
+                    remoteViol_range = 0,
+                    violenceCiv_range = 0,
+                    battle_no_change_range = 0;
+
+                for (var i = indexStart; i < indexend; i++) {
+                    strDev_range += strDev[i];
+                    hq_base_range += hq_base[i];
+                    battle_no_state_range += battle_no_state[i];
+                    battle_gov_range += battle_gov[i];
+                    non_violent_range += non_violent[i];
+                    stratDev_range += stratDev[i];
+                    riots_range += riots[i];
+                    remoteViol_range += remoteViol[i];
+                    violenceCiv_range += violenceCiv[i];
+                    battle_no_change_range += battle_no_change[i];
+                }
+                console.log(strDev_range);
+                console.log(total_SD);
+                console.log(strDev_range/total_SD)
+                dash.strDev = (strDev_range/total_SD * 100 ).toFixed(1) || 0;
+                dash.hq_base = (hq_base_range/total_HQ * 100).toFixed(1) || 0;
+                dash.battle_no_state = (battle_no_state_range/total_BNS * 100).toFixed(1) || 0;
+                dash.battle_gov = (battle_gov_range/total_BG * 100).toFixed(1) || 0;
+                dash.non_violent = (non_violent_range/total_NV * 100).toFixed(1) || 0;
+                dash.riots = (riots_range/total_R * 100).toFixed(1) || 0;
+                dash.remoteViol = (remoteViol_range/total_RV * 100).toFixed(1) || 0;
+                dash.violenceCiv = (violenceCiv_range/total_VC * 100).toFixed(1) || 0;
+                dash.battle_no_change = (battle_no_change_range/total_BNC * 100).toFixed(1) || 0;
+                //console.log(event_type[0]);
                 var list = event_type[0];
                 var numArray = Object.values(list);
                 numArray = numArray.sort((a, b) => a - b);
@@ -218,7 +347,7 @@ angular.module('app.dash', [])
                 keysSorted = Object.keys(list).sort(function(a, b) {
                     return list[a] - list[b]
                 });
-                //console.log(keysSorted);
+                console.log(keysSorted);
                 var ctx3 = document.getElementById("radarChart");
                 if (dash.myRadarChart != undefined || dash.myRadarChart != null) {
                     dash.myRadarChart.destroy();
@@ -286,6 +415,7 @@ angular.module('app.dash', [])
                         }
                     }
                 });
+
                 var ctx = document.getElementById("fatalitiesChart");
                 // dash.myLineChart = undefined;
                 if (dash.myLineChart != undefined || dash.myLineChart != null) {
@@ -295,7 +425,7 @@ angular.module('app.dash', [])
                 dash.myLineChart = new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: dates,
+                        labels: dates.slice(indexStart, indexend + 1),
                         datasets: [{
                             label: "Fatalities",
                             fill: true,
@@ -315,12 +445,12 @@ angular.module('app.dash', [])
                             pointHoverBorderWidth: 2,
                             pointRadius: 1,
                             pointHitRadius: 10,
-                            data: deaths,
+                            data: deaths.slice(indexStart, indexend + 1),
                             spanGaps: false,
                         }, {
                             type: 'line',
                             label: 'Number of Events',
-                            data: events,
+                            data: events.slice(indexStart, indexend + 1),
                             backgroundColor: "rgba(0,0,0,0.3)",
                             borderColor: "rgba(0,0,0,.7)"
                         }]
@@ -334,7 +464,7 @@ angular.module('app.dash', [])
                 dash.myEventChart = new Chart(ctx2, {
                     type: 'line',
                     data: {
-                        labels: dates,
+                        labels: dates.slice(indexStart, indexend + 1),
                         datasets: [{
                             label: "Number Of Events",
                             fill: true,
@@ -354,8 +484,78 @@ angular.module('app.dash', [])
                             pointHoverBorderWidth: 2,
                             pointRadius: 1,
                             pointHitRadius: 10,
-                            data: events,
+                            data: events.slice(indexStart, indexend + 1),
                             spanGaps: false,
+                        }]
+                    }
+                });
+                var ctx6 = document.getElementById("individualEventChart");
+                // dash.myLineChart = undefined;
+                if (dash.myIndividualEventChart != undefined || dash.myIndividualEventChart != null) {
+                    dash.myIndividualEventChart.destroy();
+                }
+                //console.log(strDev);
+                //console.log(dash.myIndividualEventChart)
+                dash.myIndividualEventChart = new Chart(ctx6, {
+                    type: 'line',
+                    data: {
+                        labels: dates.slice(indexStart, indexend + 1),
+                        datasets: [{
+                            type: 'line',
+                            label: 'Strategic Development',
+                            data: strDev.slice(indexStart, indexend + 1),
+                            backgroundColor: "rgba(150,0,0,.1)",
+                            borderColor: "rgba(150,0,0,1)"
+                        }, {
+                            type: 'line',
+                            label: 'Headquarters or base established',
+                            data: hq_base.slice(indexStart, indexend + 1),
+                            backgroundColor: "rgba(0,0,150,.1)",
+                            borderColor: "rgba(0,0,150,1)"
+                        }, {
+                            type: 'line',
+                            label: 'Battle-Non-state actor overtakes territory',
+                            data: battle_no_state.slice(indexStart, indexend + 1),
+                            backgroundColor: "rgba(0,150,0,.1)",
+                            borderColor: "rgba(0,150,0,1)"
+                        }, {
+                            type: 'line',
+                            label: 'Battle-Government regains territory',
+                            data: battle_gov.slice(indexStart, indexend + 1),
+                            backgroundColor: "rgba(150,150,0,.1)",
+                            borderColor: "rgba(150,150,0,1)"
+                        }, {
+
+                            type: 'line',
+                            label: 'Non-violent transfer of territory',
+                            data: non_violent.slice(indexStart, indexend + 1),
+                            backgroundColor: "rgba(0,0,0,0)",
+                            borderColor: "rgba(150,150,150,1)"
+                        }, {
+                            type: 'line',
+                            label: 'Riots and Protest',
+                            data: riots.slice(indexStart, indexend + 1),
+                            backgroundColor: "rgba(150,0,150,.1)",
+                            borderColor: "rgba(150,0,150,1)"
+                        }, {
+                            type: 'line',
+                            label: 'Remote Violence',
+                            data: remoteViol.slice(indexStart, indexend + 1),
+                            backgroundColor: "rgba(150,0,150,.1)",
+                            borderColor: "rgba(75,0,0,.3)"
+                        }, {
+                            type: 'line',
+                            label: 'Violence against civilians',
+                            data: violenceCiv.slice(indexStart, indexend + 1),
+                            backgroundColor: "rgba(0,75,0,.1)",
+                            borderColor: "rgba(0,75,0,1)"
+                        }, {
+                            type: 'line',
+                            label: 'Battle-No change of territory',
+                            data: battle_no_change.slice(indexStart, indexend + 1),
+                            backgroundColor: "rgba(0,0,75,.1)",
+                            borderColor: "rgba(0,0,75,1)"
+
                         }]
                     }
                 });
@@ -416,36 +616,7 @@ angular.module('app.dash', [])
                         }
                     };
 
-                    // The speed gauge
-                    // dash.chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
-                    //     yAxis: {
-                    //         min: 0,
-                    //         max: totalData,
-                    //         title: {
-                    //             text: 'Total Data'
-                    //         }
-                    //     },
-                    //
-                    //     credits: {
-                    //         enabled: false
-                    //     },
-                    //
-                    //     series: [{
-                    //         name: 'Speed',
-                    //         data: [totalData],
-                    //         dataLabels: {
-                    //             format: '<div style="text-align:center"><span style="font-size:25px;color:' +
-                    //                 ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
-                    //                 '<span style="font-size:12px;color:silver">Points of Data</span></div>'
-                    //         },
-                    //         tooltip: {
-                    //             valueSuffix: 'Data Points'
-                    //         }
-                    //     }]
-                    //
-                    // }));
 
-                    // The RPM gauge
                     if (dash.chartRpm != undefined || dash.chartRpm != null) {
                         dash.chartRpm.destroy();
                     }
@@ -472,29 +643,7 @@ angular.module('app.dash', [])
                         }]
 
                     }));
-                    // dash.chartRpm2 = Highcharts.chart('container-rpm2', Highcharts.merge(gaugeOptions, {
-                    //     yAxis: {
-                    //         min: 0,
-                    //         max: data.length,
-                    //         title: {
-                    //             text: 'Current Amount of Data'
-                    //         }
-                    //     },
-                    //
-                    //     series: [{
-                    //         name: 'RPM',
-                    //         data: [data.length],
-                    //         dataLabels: {
-                    //             format: '<div style="text-align:center"><span style="font-size:25px;color:' +
-                    //                 ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y:.1f}</span><br/>' +
-                    //                 '<span style="font-size:12px;color:silver">Total Days of Data</span></div>'
-                    //         },
-                    //         tooltip: {
-                    //             valueSuffix: ' revolutions/min'
-                    //         }
-                    //     }]
-                    //
-                    // }));
+
                 });
             })
         }
